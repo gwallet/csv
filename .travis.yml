@@ -1,0 +1,12 @@
+language: c
+
+compiler:
+  - gcc
+  - clang
+
+before_script:
+  - mkdir build
+  - cd build
+  - cmake ..
+
+script: make && env CTEST_OUTPUT_ON_FAILURE=1 make test

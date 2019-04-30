@@ -6,7 +6,7 @@ TESTS_DIR=$ROOT_DIR/test.d
 TEST_SRC_DIR=$TESTS_DIR/src
 
 set -e
-./build.sh
+$ROOT_DIR/build.sh
 set +e
 
 export PATH=$BUILD_DIR:$PATH

@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.14)
+cmake_minimum_required (VERSION 3.9)
 
 project (CSV C)
 
@@ -11,4 +11,11 @@ set (CMAKE_C_STANDARD 11)
 
 add_executable (csv
   ${PROJECT_SOURCE_DIR}/csv.c
+)
+
+enable_testing()
+
+add_test(NAME acceptance
+  WORKING_DIRECTORY ../
+  COMMAND test.sh
 )
