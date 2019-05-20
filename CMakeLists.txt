@@ -19,3 +19,13 @@ add_test(NAME acceptance
   WORKING_DIRECTORY ../
   COMMAND test.sh
 )
+
+install(
+  FILES doc/csv.1
+  DESTINATION "${CMAKE_INSTALL_PREFIX}/man/man1"
+)
+
+install(
+  TARGETS csv
+  RUNTIME
+)
