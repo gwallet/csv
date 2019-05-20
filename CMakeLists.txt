@@ -1,16 +1,17 @@
-cmake_minimum_required (VERSION 3.9)
+cmake_minimum_required (VERSION 3.14)
 
-project (CSV C)
-
-set (CSV_VERSION_MAJOR 1)
-set (CSV_VERSION_MINOR 0)
-
-set (PROJECT_SOURCE_DIR src)
+project (
+  CSV
+  VERSION 1.0.0
+  DESCRIPTION "Comma Separated Value file manipulation utility."
+  HOMEPAGE_URL "https://github.com/gwallet/csv"
+  LANGUAGES C
+)
 
 set (CMAKE_C_STANDARD 11)
 
 add_executable (csv
-  ${PROJECT_SOURCE_DIR}/csv.c
+  src/csv.c
 )
 
 enable_testing()
