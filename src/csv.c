@@ -18,6 +18,7 @@
 #include <errno.h>
 #include <getopt.h>
 #include <libgen.h>
+#include <fcntl.h>
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -100,6 +101,8 @@ bool csv_file(char *file) {
       return false;
     }
   }
+
+  posix_fadvise(fileno(stream), 0, 0, POSIX_FADV_SEQUENTIAL);
 
   bool res = csv_stream(stream);
 
