@@ -1,10 +1,10 @@
 #!/bin/sh
 
 if [ ! -d build ]; then
-	mkdir build
-	cd build
-	cmake ..
-	cd -
+  mkdir build
+  cd build
+  cmake ..
+  cd -
 fi
 
 cd build
