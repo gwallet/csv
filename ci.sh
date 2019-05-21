@@ -6,4 +6,4 @@ if [ $? != 0 ]; then
 	exit 1
 fi
 
-ls src/* | entr -r ./test.sh
+ls src/* | entr -cr ./test.sh

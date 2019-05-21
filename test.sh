@@ -4,8 +4,9 @@ if [ ! -d build ]; then
   mkdir build
   cd build
   cmake ..
-  cd -
+else
+  cd build
 fi
 
-cd build
-make test
+cmake --build .
+env CTEST_OUTPUT_ON_FAILURE=1 make test

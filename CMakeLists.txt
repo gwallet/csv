@@ -16,9 +16,9 @@ add_executable (csv
 
 enable_testing()
 
-file(GLOB TEST_CASES test.d/*.sh LIST_DIRECTORIES false)
+file(GLOB TEST_CASES test/*.sh LIST_DIRECTORIES false)
 foreach(TEST_CASE ${TEST_CASES})
-  string(REPLACE "${CMAKE_SOURCE_DIR}/test.d/" "" TEST_NAME ${TEST_CASE})
+  string(REPLACE "${CMAKE_SOURCE_DIR}/test/" "" TEST_NAME ${TEST_CASE})
   string(REPLACE ".sh" "" TEST_NAME ${TEST_NAME})
   add_test(
     NAME ${TEST_NAME}
