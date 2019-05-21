@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gwallet/csv.svg?branch=master)](https://travis-ci.org/gwallet/csv)
+
 CSV - [Comma Separated Value](https://tools.ietf.org/html/rfc4180) file manipulation utility
 ============================================================================================
 
