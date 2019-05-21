@@ -1,13 +1,13 @@
-cmake_minimum_required (VERSION 3.14)
+cmake_minimum_required (VERSION 3.9)
 
 project (
   CSV
   VERSION 1.0.0
   DESCRIPTION "Comma Separated Value file manipulation utility."
-  HOMEPAGE_URL "https://github.com/gwallet/csv"
   LANGUAGES C
 )
 
+set (CMAKE_PROJECT_HOMEPAGE_URL "https://github.com/gwallet/csv")
 set (CMAKE_C_STANDARD 11)
 
 add_executable (csv
@@ -38,5 +38,5 @@ install(
 
 install(
   TARGETS csv
-  RUNTIME
+  RUNTIME DESTINATION bin
 )
