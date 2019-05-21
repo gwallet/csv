@@ -25,6 +25,7 @@
 #include <string.h>
 
 static bool field_selected[256];
+static char field_separator = ',';
 
 bool csv_stream(FILE *stream) {
   int c;
@@ -39,48 +40,46 @@ bool csv_stream(FILE *stream) {
     c = getc(stream);
     if (c == EOF) break;
 
-    switch (c) {
-      case ',': {
-        if (!escaped) {
-          field_index++;
-          char_index = 0;
-          if (field_selected[field_index] && field_index != first_selected_field_index) {
-            putchar(c);
-          }
-        }
-        else {
+    if (c == field_separator) {
+      if (!escaped) {
+        field_index++;
+        char_index = 0;
+        if (field_selected[field_index] && field_index != first_selected_field_index) {
           putchar(c);
         }
-      } break;
-      case '"': {
-        char n = getc(stream);
-        if (n == '"') {
-          if (field_selected[field_index]) {
-            putchar(c);
-            putchar(n);
-            char_index+=2;
-          }
-        }
-        else {
-          ungetc(n, stream);
-          if (escaped) escaped = false;
-          else if (char_index == 0) escaped = true;
-          if (field_selected[field_index]) {
-            putchar(c);
-            char_index++;
-          }
-        }
-      } break;
-      case '\n': {
-        field_index = 0;
-        char_index = 0;
+      }
+      else {
         putchar(c);
-      } break;
-      default: {
+      }
+    }
+    else if (c == '"') {
+      char n = getc(stream);
+      if (n == '"') {
+        if (field_selected[field_index]) {
+          putchar(c);
+          putchar(n);
+          char_index+=2;
+        }
+      }
+      else {
+        ungetc(n, stream);
+        if (escaped) escaped = false;
+        else if (char_index == 0) escaped = true;
         if (field_selected[field_index]) {
           putchar(c);
           char_index++;
         }
+      }
+    }
+    else if (c == '\n') {
+      field_index = 0;
+      char_index = 0;
+      putchar(c);
+    }
+    else {
+      if (field_selected[field_index]) {
+        putchar(c);
+        char_index++;
       }
     }
   }
@@ -116,6 +115,7 @@ bool csv_file(char *file) {
 static struct option longopts[] = {
   {"fields", required_argument, NULL, 'f'},
   {"help", no_argument, NULL, 'h'},
+  {"separator", required_argument, NULL, 's'},
   {NULL, 0, NULL, 0}
 };
 
@@ -128,6 +128,7 @@ Usage: %1$s OPTION... [FILE|-]\n\
 Options:\n\
   -h,--help\tdisplay usage and exits with status 0.\n\
   -f,--fields\tselect the comma separated list of fields number to output, first is 1\n\
+  -s,--separator\tchange the character used to separate fields, default is ','(colon)\n\
 Example:\n\
   $> %1$s -f 3,5,8,42 file.csv\n\
 ", prog_name);
@@ -141,8 +142,12 @@ int main(int argc, char *argv[]) {
   prog_name = basename(argv[0]);
 
   memset(field_selected, true, 256);
-  while ((optc = getopt_long(argc, argv, "f:h", longopts, NULL)) != -1) {
+  while ((optc = getopt_long(argc, argv, "f:hs:", longopts, NULL)) != -1) {
     switch (optc) {
+      case 's': {
+        field_separator = optarg[0];
+      }
+      break;
       case 'f': {
         memset(field_selected, false, 256);
         char *fields_spec = optarg;

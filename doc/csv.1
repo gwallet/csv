@@ -5,8 +5,10 @@
 .Nd Comma Separated Value file manipulation utility
 .Sh SYNOPSIS
 .Nm
-.Op Fl f Ar field_spec | Fl h
-.Op \- | Ar FILE
+.Op Fl f Ar field_spec
+.Op Fl s Ar separator_char
+.Op Fl h
+.Op \- | Ar file
 .Sh DESCRIPTION
 .Nm
 reads file or standard input if no file is specified, and print result in standard output.
@@ -16,8 +18,11 @@ reads from standard input.
 .Sh OPTIONS
 .Bl -item
 .It
-.Fl f , Fl -field
+.Fl f , Fl -fields
 Specify the fields to output, first starts at 1
+.It
+.Fl s , Fl -separator
+Change the field separator, default is ','
 .It
 .Fl h , Fl -help
 inline documentation
@@ -25,6 +30,9 @@ inline documentation
 .Sh EXAMPLES
 Outputs few column of a CSV file:
 .D1 $ Nm Fl f Ar 1,5,8,42 Ar file.csv
+.Pp
+Outputs few column of a SCSV file:
+.D1 $ Nm Fl s Ar ';' Fl f Ar 1,5,8,42 Ar file.scsv
 .Pp
 Use the output of a command with pipe:
 .D1 $ fun_stuff | Nm Fl f Ar 3,5,42

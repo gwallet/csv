@@ -17,10 +17,11 @@ If FILE is absent, or is equal to `-`, reads from standard input.
 Options
 -------
 
-Options    | Remarks
------------|-----------------------------------------------
--f,--field | Specify all field to output, first starts at 1
--h,--help  | inline documentation
+Options        | Remarks
+---------------|-----------------------------------------------
+-f,--fields    | specify all field to output, first starts at 1
+-s,--separator | change the separator character, default is ','
+-h,--help      | inline documentation
 
 Example
 -------
@@ -29,6 +30,12 @@ Example
 
 ```bash
 csv -f 1,5,8,42 file.csv
+```
+
+### Outputs few column of a SCSV file
+
+```bash
+csv -s ';' -f 1,5,8,42 file.scsv
 ```
 
 ### Use the output of a command with pipe
